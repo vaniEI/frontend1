@@ -11,6 +11,7 @@
 	<groupId>com.skyexchange</groupId>
 	<artifactId>SkyExchange</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
 	<name>SkyExchange</name>
 	<description>This project is used for implementation of SkyExchange Frontend and Backend Part.</description>
 	<properties>
