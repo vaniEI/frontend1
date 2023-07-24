@@ -60,11 +60,9 @@ function checkCaptcha(){
 function authorizeToHome(){
   let username=document.getElementById("username").value;
   let password=document.getElementById("password").value;
-  let passwordEncrypted = CryptoJS.AES.encrypt(password);
-  console.log(passwordEncrypted);
   const captcha = document.getElementById("captcha").value;
   if(username !== "" && username !== "null" && password !== "" && password !== "null" && captcha !=="" && captcha !== "null"){
-    const data = { "userid": `${username}`, "password": `${passwordEncrypted}`};
+    const data = { "userid": `${username}`, "password": `${password}`};
     fetchLogin(data);
   }
 }
