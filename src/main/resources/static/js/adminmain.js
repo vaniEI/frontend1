@@ -69,7 +69,7 @@ function authorizeToHome(){
 
 async function fetchLogin(data) {
   try {
-    const response = await fetch("http://127.0.0.1:7074/exuser/managementHome", {
+    const response = await fetch("http://localhost:7074/exuser/managementHome", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -85,7 +85,7 @@ async function fetchLogin(data) {
       passwordp.innerHTML = "* Invalid Password !";
     }
     else if(result.type === "success"){
-      window.location.href = "http://127.0.0.1:7074/home";
+      window.location.href = "http://localhost:7074/home";
     }
   } catch (error) {
     console.error("Error:", error);
@@ -123,7 +123,7 @@ function saveUser(){
 
 async function saveUserInMongo(data) {
   try {
-    const response = await fetch("http://127.0.0.1:7074/exuser/validateUserCreation", {
+    const response = await fetch("http://localhost:7074/exuser/validateUserCreation", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -141,7 +141,7 @@ async function saveUserInMongo(data) {
 }
 
 async function getAllWebsites() {
-  const response = await fetch("http://127.0.0.1:7074/exuser/allWebsite");
+  const response = await fetch("http://localhost:7074/exuser/allWebsite");
   const websites = await response.json();
   return websites;
 }
@@ -158,7 +158,7 @@ async function  showAllWebsites() {
 showAllWebsites();
 
 async function getAllChild() {
-  const response = await fetch("http://127.0.0.1:7074/exuser/allchild");
+  const response = await fetch("http://localhost:7074/exuser/allchild");
   const childs = await response.json();
   return childs;
 }
