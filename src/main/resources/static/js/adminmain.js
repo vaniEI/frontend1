@@ -57,12 +57,31 @@ function checkCaptcha(){
     captchap.innerHTML="";
 }
 
+var encryptedBase64Key = "bXVzdGJlMTZieXRlc2tleQ==";
+var parsedBase64Key = CryptoJS.enc.Base64.parse(encryptedBase64Key);
+
+function encryptMessage (password){
+  return CryptoJS.AES.encrypt(password, parsedBase64Key, {
+    mode: CryptoJS.mode.ECB,
+    padding: CryptoJS.pad.Pkcs7
+    });
+}
+
+function decryptMessage (encryptPassword){
+  return CryptoJS.AES.decrypt( encryptPassword, parsedBase64Key, {
+    mode: CryptoJS.mode.ECB,
+    padding: CryptoJS.pad.Pkcs7
+    } );
+}
+
 function authorizeToHome(){
   let username=document.getElementById("username").value;
   let password=document.getElementById("password").value;
   const captcha = document.getElementById("captcha").value;
+  const encryptedPassword = encryptMessage(password).toString();
   if(username !== "" && username !== "null" && password !== "" && password !== "null" && captcha !=="" && captcha !== "null"){
-    const data = { "userid": `${username}`, "password": `${password}`};
+    const data = { "userid": `${username}`, "password": `${encryptedPassword}`};
+    console.log(data);
     fetchLogin(data);
   }
 }
@@ -77,7 +96,6 @@ async function fetchLogin(data) {
       body: JSON.stringify(data),
     });
     const result = await response.json();
-    console.log(result);
     if(result.message === "Wrong UserId!!!"){
       usernamep.innerHTML = "* Invalid Username !";
     }
@@ -85,7 +103,7 @@ async function fetchLogin(data) {
       passwordp.innerHTML = "* Invalid Password !";
     }
     else if(result.type === "success"){
-      window.location.href = "http://localhost:7074/home";
+      window.location.href = "/home";
     }
   } catch (error) {
     console.error("Error:", error);
@@ -107,16 +125,16 @@ function saveUser(){
     return;
   }
   else{
+    const encryptedPassword = encryptMessage(password).toString();
     const data = { "username":`${website}`,
                   "userid": `${userName}`,
                   "email":`${email}`,
-                  "password": `${password}`,
+                  "password": `${encryptedPassword}`,
                   "firstName":`${firstName}`,
                   "lastName":`${lastName}`,
                   "mobileNumber":`${mobileNumber}`,
                   "exposureLimit":2000,
                   "timeZone":`${timeZone}`};
-                   console.log(data);
     saveUserInMongo(data);
   }
 }
@@ -134,6 +152,14 @@ async function saveUserInMongo(data) {
     if(result.type === "success"){
       alert("User created successfully!");
       location.reload();
+    }
+    else if(result.type === "error"){
+      if(result.message === "Invalid Email Address"){
+        document.getElementById("emailErrorText").innerHTML="Invalid Email Address";
+      }
+      else if(result.message === "User Id Required"){
+        document.getElementById("userNameErrorText").innerHTML="User Id Required";
+      }
     }
   } catch (error) {
     console.error("Error:", error);
@@ -217,14 +243,10 @@ async function userSearch(){
   let childs = document.getElementById("childs");
   childs.innerHTML="";
   let allChilds = await  getAllChild();
-  console.log(allChilds);
-  const userId=document.getElementById("userId").value.toLowerCase();
-  console.log(userId);
-  const filterUser=allChilds.filter(child => child.userid === userId);
-  console.log(filterUser);
+  let userId=document.getElementById("userId").value.toLowerCase();
+  let filterUser=allChilds.filter(child => child.userid === userId);
   for (let i = 0; i < filterUser.length; i++) {
     let child = filterUser[i];
-    console.log(child);
     childs.innerHTML+=`
         <tr id="sadmin" style="display: table-row;text-align: end;" main_userid="sadmin">
         <td id="accountCol" style="text-align: start;" class="align-L">
@@ -267,6 +289,35 @@ async function userSearch(){
       </tr>`;
   }
 }
+
+function checkUserAvailable(){
+  let userid=document.getElementById("userName").value;
+  const data = { "userid": `${userid}`};
+  checkOnDatabase(data);
+}
+
+async function checkOnDatabase(data) {
+  try {
+    const response = await fetch("http://localhost:7074/exuser/checkuser", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    const result = await response.json();
+    if(result.type === "Error"){
+      document.getElementById("userNameErrorText").innerHTML=`${result.message}`;
+      return;
+    }
+    else if(result.type === "Success"){
+      document.getElementById("userNameErrorText").innerHTML="";
+    }
+  } catch (error) {
+    console.error("Error:", error);
+  }
+}
+
 
 function redirectToSamePageWithData() {
   console.log(id, userType);

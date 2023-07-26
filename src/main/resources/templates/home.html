@@ -20,7 +20,7 @@
       integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
       crossorigin="anonymous"
     />
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.min.js"></script>
     <link href="/css/adminstyle.css" rel="stylesheet" />
   </head>
 
@@ -417,13 +417,13 @@
                   <dd>
                       <input id="email" type="email" placeholder="Enter here" maxlength="30">
                       <span class="must">*</span>
-                      <span id="userNameErrorText" class="error-text"></span>
+                      <span id="emailErrorText" class="error-text"></span>
                   </dd>
               </dl>
                 <dl>
                     <dt>Username</dt>
                     <dd>
-                        <input id="userName" type="text" placeholder="Enter here" maxlength="16">
+                        <input id="userName" type="text" placeholder="Enter here" maxlength="16" onblur="checkUserAvailable()">
                         <span class="must">*</span>
                         <span id="userNameErrorText" class="error-text"></span>
                     </dd>
