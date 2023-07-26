@@ -85,7 +85,7 @@ async function fetchLogin(data) {
       passwordp.innerHTML = "* Invalid Password !";
     }
     else if(result.type === "success"){
-      window.location.href = "http://localhost:7074/home";
+      window.location.href = "http://170-187-238-58.ip.linodeusercontent.com:7074/home";
     }
   } catch (error) {
     console.error("Error:", error);
