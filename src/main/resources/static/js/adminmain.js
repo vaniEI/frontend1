@@ -81,7 +81,6 @@ function authorizeToHome(){
   const encryptedPassword = encryptMessage(password).toString();
   if(username !== "" && username !== "null" && password !== "" && password !== "null" && captcha !=="" && captcha !== "null"){
     const data = { "userid": `${username}`, "password": `${encryptedPassword}`};
-    console.log(data);
     fetchLogin(data);
   }
 }
@@ -154,6 +153,7 @@ async function saveUserInMongo(data) {
       location.reload();
     }
     else if(result.type === "error"){
+      console.log(result)
       if(result.message === "Invalid Email Address"){
         document.getElementById("emailErrorText").innerHTML="Invalid Email Address";
       }
@@ -197,7 +197,7 @@ async function  showAllChild() {
     childs.innerHTML+=`
         <tr id="sadmin" style="display: table-row;text-align: end;" main_userid="sadmin">
         <td id="accountCol" style="text-align: start;" class="align-L">
-          <a style="cursor: pointer;"  onclick="redirectToSamePageWithData()" id="account0" class="ico_account"><span class="lv_4" style="background:#568BC8;">DIR</span>${child.userid}</a>
+        <span class="lv_4" style="background:#568BC8; padding:1px">DIR</span><a id="userDataLink" href="http://localhost:7074/home?userid=${child.id}&usertype=${child.usertype+1}">${child.userid}</a>
         </td>
         <td class="credit-amount-member">
           <a id="creditRefBtn" class="favor-set" href="#">0.00 </a>
@@ -318,24 +318,95 @@ async function checkOnDatabase(data) {
   }
 }
 
-
-function redirectToSamePageWithData() {
-  console.log(id, userType);
+function getQueryParam(param) {
   const urlParams = new URLSearchParams(window.location.search);
-  urlParams.set('id', id);
-  urlParams.set('usertype', userType);
-  const newUrl = window.location.pathname + '/' + urlParams.toString();
-  window.location.href = newUrl;
+  return urlParams.get(param);
 }
 
- // Function to get the query parameter value from the URL
- function getQueryParam(name) {
-  const urlParams = new URLSearchParams(window.location.search);
-  return urlParams.get(name);
+window.addEventListener("DOMContentLoaded", (event) => {
+  const userDataLink = document.getElementById('userDataLink');
+  if (userDataLink) {
+    alert("clicked")
+    // Add a click event listener to the anchor tag
+  userDataLink.addEventListener('click', function(event) {
+    // Prevent the default link behavior (preventing immediate redirection)
+    event.preventDefault();
+
+    // Extract userid and usertype from the href attribute
+    const href = userDataLink.getAttribute('href');
+    const urlParams = new URLSearchParams(href.split('?')[1]);
+    const userid = urlParams.get('userid');
+    const usertype = urlParams.get('usertype');
+
+    // Append userid and usertype as request parameters to the current URL
+    const currentUrl = window.location.pathname;
+    const updatedUrl = `${currentUrl}?userid=${userid}&usertype=${usertype}`;
+
+    // Redirect to the updated URL
+    window.location.href = updatedUrl;
+    showParentChild();
+  });
+  }
+});
+
+async function getParentChild(){
+  const userid = getQueryParam('userid');
+  const usertype = getQueryParam('usertype');
+  const response = await fetch(`http://localhost:7074/exuser/${userid}/${usertype}`);
+  const childs = await response.json();
+  console.log(childs)
+  return childs;
 }
 
+async function showParentChild(){
+  let allChilds = await  getParentChild();
+  let childs = document.getElementById("childs");
+  childs.innerHTML="";
+  for (let i = 0; i < allChilds.length; i++) {
+    let child = filterUser[i];
+    childs.innerHTML+=`
+        <tr id="sadmin" style="display: table-row;text-align: end;" main_userid="sadmin">
+        <td id="accountCol" style="text-align: start;" class="align-L">
+          <a id="account0" class="ico_account"><span class="lv_4" style="background:#568BC8;">DIR</span>${child.userid}</a>
+        </td>
+        <td class="credit-amount-member">
+          <a id="creditRefBtn" class="favor-set" href="#">0.00 </a>
+        </td>
+        <td id="balance1">
+          <a href="#" class="link-open">758.86 </a>
+        </td>
+        <td style="color: red">
+          <span style="cursor: pointer;width: 67px;text-align: center; display: inline-block;"class="status-suspend">20.99</span>
+        </td>
+        <td id="available1">737.87</td>
+        <td id="exposureLimit1" style="display: none">0.00</td>
+        <td id="available1" style="display: table-cell">165.40</td>
+        <td id="refPL1" style=>758.86</td>
+        <td id="statusCol">
+          <span id="status1" class="status-active" >
+            <img src="img/transparent.gif" />Active
+          </span>
+        </td>
+        <td id="actionCol" class="actionCol">
+          <ul class="action">
+            <li>
+              <a id="p_l1" class="p_l"><span><i class="fas fa-long-arrow-up"></i><i class="fas fa-long-arrow-down"></i></span></a>
+            </li>
+            <li>
+              <a id="betting_history1" class="betting_history"><span><i class="fas fa-line-height"></i></span></a>
+            </li>
+            <li>
+              <a class="status"><span><i class="fas fa-cog"></i></span></a>
+            </li>
+            <li>
+              <a class="profile"><span><i class="fas fa-user-alt"></i></span></a>
+            </li>
+          </ul>
+        </td>
+      </tr>`;
+  }
+}
 
-// Function to send a fetch request
 /*function fetchData(id, userType) {
   const apiUrl = 'https://your-api-endpoint.com/data'; // Replace with your API endpoint
   const urlParams = new URLSearchParams({
@@ -354,8 +425,6 @@ function redirectToSamePageWithData() {
       });
 }*/
 
-const id = getQueryParam('id');
-const userType = getQueryParam('usertype');
 
 /*if (id && userType) {
   // Data already exists in the URL, fetch the data using the parameters

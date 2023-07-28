@@ -16,6 +16,11 @@ public class MainController {
 		return "home";
 	}
 
+	@RequestMapping("/home?userid={id}&usertype={usertype}")
+	public String childhome() {
+		return "childhome";
+	}
+
 	@RequestMapping("/account")
 	public String account() {
 		return "myaccount";
