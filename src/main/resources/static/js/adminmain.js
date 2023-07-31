@@ -102,7 +102,8 @@ async function fetchLogin(data) {
       passwordp.innerHTML = "* Invalid Password !";
     }
     else if(result.type === "success"){
-      window.location.href = "/home";
+      console.log(result.message);
+      //window.location.href = "/home";
     }
   } catch (error) {
     console.error("Error:", error);
@@ -125,7 +126,7 @@ function saveUser(){
   }
   else{
     const encryptedPassword = encryptMessage(password).toString();
-    const data = { "username":`${website}`,
+    const data = { "websitename":`${website}`,
                   "userid": `${userName}`,
                   "email":`${email}`,
                   "password": `${encryptedPassword}`,
@@ -183,21 +184,22 @@ async function  showAllWebsites() {
 
 showAllWebsites();
 
-async function getAllChild() {
-  const response = await fetch("http://localhost:7074/exuser/allchild");
+async function getAllChild(pageno, pagesize) {
+  const response = await fetch(`http://localhost:7074/exuser//allchildwithpagination?page=${pageno}&size=${pagesize}`);
   const childs = await response.json();
   return childs;
 }
 
-async function  showAllChild() {
-  let allChilds = await  getAllChild();
+async function  showAllChild(pageno, pagesize) {
+  let allChilds = await  getAllChild(pageno, pagesize);
+  let childs = document.getElementById("childs");
+  childs.innerHTML="";
   for (let i = 0; i < allChilds.length; i++) {
     let child = allChilds[i];
-    let childs = document.getElementById("childs");
     childs.innerHTML+=`
         <tr id="sadmin" style="display: table-row;text-align: end;" main_userid="sadmin">
         <td id="accountCol" style="text-align: start;" class="align-L">
-        <span class="lv_4" style="background:#568BC8; padding:1px">DIR</span><a id="userDataLink" href="http://localhost:7074/home?userid=${child.id}&usertype=${child.usertype+1}">${child.userid}</a>
+        <span class="lv_4" style="background:#568BC8; padding:1px">DIR</span><a id="userDataLink" href="${window.location.pathname}?userid=${child.id}&usertype=${child.usertype+1}">${child.userid}</a>
         </td>
         <td class="credit-amount-member">
           <a id="creditRefBtn" class="favor-set" href="#">0.00 </a>
@@ -237,12 +239,13 @@ async function  showAllChild() {
   }
 }
 
-showAllChild();
+showAllChild(0, 10);
 
 async function userSearch(){
+  const response = await fetch("http://localhost:7074/exuser/allchild");
+  const allChilds = await response.json();
   let childs = document.getElementById("childs");
   childs.innerHTML="";
-  let allChilds = await  getAllChild();
   let userId=document.getElementById("userId").value.toLowerCase();
   let filterUser=allChilds.filter(child => child.userid === userId);
   for (let i = 0; i < filterUser.length; i++) {
@@ -323,27 +326,24 @@ function getQueryParam(param) {
   return urlParams.get(param);
 }
 
-window.addEventListener("DOMContentLoaded", (event) => {
+document.addEventListener("DOMContentLoaded", (event) => {
   const userDataLink = document.getElementById('userDataLink');
   if (userDataLink) {
-    alert("clicked")
-    // Add a click event listener to the anchor tag
   userDataLink.addEventListener('click', function(event) {
-    // Prevent the default link behavior (preventing immediate redirection)
     event.preventDefault();
 
     // Extract userid and usertype from the href attribute
-    const href = userDataLink.getAttribute('href');
-    const urlParams = new URLSearchParams(href.split('?')[1]);
-    const userid = urlParams.get('userid');
-    const usertype = urlParams.get('usertype');
+    //const href = userDataLink.getAttribute('href');
+    //const urlParams = new URLSearchParams(href.split('?')[1]);
+    //const userid = urlParams.get('userid');
+    //const usertype = urlParams.get('usertype');
 
     // Append userid and usertype as request parameters to the current URL
-    const currentUrl = window.location.pathname;
-    const updatedUrl = `${currentUrl}?userid=${userid}&usertype=${usertype}`;
+    //const currentUrl = window.location.pathname;
+    //const updatedUrl = `${currentUrl}?userid=${userid}&usertype=${usertype}`;
 
     // Redirect to the updated URL
-    window.location.href = updatedUrl;
+    //window.location.href = updatedUrl;
     showParentChild();
   });
   }

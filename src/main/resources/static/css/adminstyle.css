@@ -1031,7 +1031,7 @@ option {
 .table01 td, .table-s td, .table_one td {
     position: relative;
 }
-.pages {
+/* .pages {
     margin: 25px 0;
     text-align: center;
     padding: 0;
@@ -1043,6 +1043,16 @@ option {
     list-style: none;
     line-height: 25px;
     margin-right: 5px;
+} */
+.pagination .page-link{
+   color: #020202;
+   font-size: 12px;
+}
+.pagination .page-item{
+    cursor: pointer;
+}
+.pagination .page-item :hover{
+    background-color: #ffc107;
 }
 .btn, .btn-send, .nova88exch .total_all .search-but, .marquee-pop .pages a, .pages a, .calendarTable_inputBox input, .calendarTable_inputBox textarea, .calendarTable_inputBox .member_select a, .member_select .calendarTable_inputBox a, .total_all .btn_replay, .btn_expand, .add_member {
     background: #eee url(../img/bg-btn.gif) repeat-x;
