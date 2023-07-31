@@ -349,8 +349,15 @@ async function checkOnDatabase(data) {
   }
 }
 
-function logout() {
+async function logout() {
   sessionStorage.removeItem("data");
+  const response = await fetch("http://localhost:7074/exuser/logout");
+  const data = await response.json();
+  console.log(data);
+  if(data.type === "success") {
+    window.location.href = '/';
+    return;
+  }
 }
 
 function getQueryParam(param) {
