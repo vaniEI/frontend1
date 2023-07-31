@@ -102,13 +102,41 @@ async function fetchLogin(data) {
       passwordp.innerHTML = "* Invalid Password !";
     }
     else if(result.type === "success"){
-      console.log(result.message);
-      //window.location.href = "/home";
+      sessionStorage.setItem("data",JSON.stringify(result.message));
+      window.location.href = "/home";
     }
   } catch (error) {
     console.error("Error:", error);
   }
 }
+
+function setData() {
+  let data = JSON.parse(sessionStorage?.getItem("data"));
+  if(data){
+    document.getElementById("ownername").innerText = data.userid;
+    let statusofuser=document.getElementById("statusofuser");
+    if(data.usertype == 0 && statusofuser){
+      statusofuser.innerHTML="Subadmin";
+    }
+    else if(data.usertype === 1 && statusofuser){
+      statusofuser.innerHTML="Miniadmin";
+    }
+    else if(data.usertype === 2 && statusofuser){
+      statusofuser.innerHTML="Supersuper";
+    }
+    else if(data.usertype === 3 && statusofuser){
+      statusofuser.innerHTML="Supermaster";
+    }
+    else if(data.usertype === 4 && statusofuser){
+      statusofuser.innerHTML="Master";
+    }
+    else if(data.usertype === 5 && statusofuser){
+      statusofuser.innerHTML="user";
+    }
+  }
+}
+
+setData();
 
 function saveUser(){
   const website=document.getElementById("websites").value;
@@ -321,6 +349,10 @@ async function checkOnDatabase(data) {
   }
 }
 
+function logout() {
+  sessionStorage.removeItem("data");
+}
+
 function getQueryParam(param) {
   const urlParams = new URLSearchParams(window.location.search);
   return urlParams.get(param);
@@ -447,3 +479,19 @@ async function showParentChild(){
           console.error("Error fetching data:", error);
       });
 }*/
+
+function isUserLoggedIn() {
+  const userData = sessionStorage.getItem('data');
+  return userData ? true : false;
+}
+
+function handleRedirect() {
+  const currentPath = window.location.pathname;
+  if (!isUserLoggedIn() && currentPath.length > 1) {
+      window.location.href = '/';
+  }
+}
+
+//document.addEventListener('DOMContentLoaded', handleRedirect);
+
+
