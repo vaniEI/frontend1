@@ -10,10 +10,10 @@ function editpage(){
     document.getElementById('changePasswordModal').classList.toggle('show')
 }
 
-let captcha;
-let usernamep=document.getElementById("usernamep");
-let passwordp=document.getElementById("passwordp");
-let captchap=document.getElementById("captchap");
+var captcha;
+var usernamep=document.getElementById("usernamep");
+var passwordp=document.getElementById("passwordp");
+var captchap=document.getElementById("captchap");
 
 function generate() {
   document.getElementById("captcha").value = "";
@@ -115,23 +115,30 @@ function setData() {
   if(data){
     document.getElementById("ownername").innerText = data.userid;
     let statusofuser=document.getElementById("statusofuser");
+    let statusofUSER=document.getElementById("statusofUSER");
     if(data.usertype == 0 && statusofuser){
       statusofuser.innerHTML="Subadmin";
+      statusofUSER.innerHTML="Subadmin";
     }
     else if(data.usertype === 1 && statusofuser){
       statusofuser.innerHTML="Miniadmin";
+      statusofUSER.innerHTML="Miniadmin";
     }
     else if(data.usertype === 2 && statusofuser){
       statusofuser.innerHTML="Supersuper";
+      statusofUSER.innerHTML="Supersuper";
     }
     else if(data.usertype === 3 && statusofuser){
       statusofuser.innerHTML="Supermaster";
+      statusofUSER.innerHTML="Supermaster";
     }
     else if(data.usertype === 4 && statusofuser){
       statusofuser.innerHTML="Master";
+      statusofUSER.innerHTML="Master";
     }
     else if(data.usertype === 5 && statusofuser){
       statusofuser.innerHTML="user";
+      statusofUSER.innerHTML="user";
     }
   }
 }
@@ -148,11 +155,13 @@ function saveUser(){
   const repeatPassword=document.getElementById("repeatPassword").value;
   const mobileNumber=document.getElementById("phone").value;
   const timeZone=document.getElementById("timezone").value;
+  let repeatPasswordErrorText=document.getElementById("repeatPasswordErrorText");
   if(password !== repeatPassword){
-    document.getElementById("repeatPasswordErrorText").innerText="* Password doesn't match ! ";
+    repeatPasswordErrorText.innerText="* Password doesn't match ! ";
     return;
   }
   else{
+    repeatPasswordErrorText.innerText="";
     const encryptedPassword = encryptMessage(password).toString();
     const data = { "websitename":`${website}`,
                   "userid": `${userName}`,
@@ -183,11 +192,40 @@ async function saveUserInMongo(data) {
     }
     else if(result.type === "error"){
       console.log(result)
+      let emailErrorText= document.getElementById("emailErrorText");
+      let userNameErrorText=document.getElementById("userNameErrorText");
+      let websiteErrorText=document.getElementById("websiteErrorText");
+      let passwordErrorText=document.getElementById("passwordErrorText");
+      let phoneErrorText=document.getElementById("phoneErrorText");
+      let firstNameErrorText=document.getElementById("firstNameErrorText");
+      let lastNameErrorText=document.getElementById("lastNameErrorText");
+      emailErrorText.innerHTML="";
+      userNameErrorText.innerHTML="";
+      websiteErrorText.innerHTML="";
+      passwordErrorText.innerHTML="";
+      phoneErrorText.innerHTML="";
+      firstNameErrorText.innerHTML="";
+      lastNameErrorText.innerHTML="";
       if(result.message === "Invalid Email Address"){
-        document.getElementById("emailErrorText").innerHTML="Invalid Email Address";
+       emailErrorText.innerHTML="Invalid Email Address !";
       }
       else if(result.message === "User Id Required"){
-        document.getElementById("userNameErrorText").innerHTML="User Id Required";
+        userNameErrorText.innerHTML="User Id Required !";
+      }
+      else if(result.message === "Website Name Must be grater than 5 Characters"){
+        websiteErrorText.innerHTML="Website Name Must be grater than 5 Characters !";
+      }
+      else if(result.message === "Password Must contains 1 Upper Case, 1 Lowe Case & 1 Numeric Value & in Between 10-15 Charachter"){
+        passwordErrorText.innerHTML="Password Must contains 1 Upper Case, 1 Lowe Case & 1 Numeric Value & in Between 10-15 Charachter !";
+      }
+      else if(result.message === "Mobile Number Must Be Of 10 Digit"){
+        phoneErrorText.innerHTML="Mobile Number Must Be Of 10 Digit !";
+      }
+      else if(result.message === "Enter FirstName"){
+        firstNameErrorText.innerHTML="Enter FirstName !";
+      }
+      else if(result.message === "Enter LastName"){
+        lastNameErrorText.innerHTML="Enter LastName !";
       }
     }
   } catch (error) {
@@ -212,18 +250,58 @@ async function  showAllWebsites() {
 
 showAllWebsites();
 
-async function getAllChild(pageno, pagesize) {
-  const response = await fetch(`http://localhost:7074/exuser//allchildwithpagination?page=${pageno}&size=${pagesize}`);
-  const childs = await response.json();
-  return childs;
+var currentPage = 0;
+var itemsPerPage = 10;
+
+function nextPage() {
+  if (currentPage < 2) {
+    currentPage++;
+    getAllChild(currentPage,itemsPerPage);
+  }
 }
 
-async function  showAllChild(pageno, pagesize) {
-  let allChilds = await  getAllChild(pageno, pagesize);
+function prevPage() {
+  if (currentPage > 0) {
+    currentPage--;
+    getAllChild(currentPage,itemsPerPage);
+  }
+}
+
+window.addEventListener("DOMContentLoaded", (event) => {
+  const nextBtn = document.getElementById('next-btn');
+  const prevBtn = document.getElementById('prev-btn');
+  const pageButtons = document.getElementsByClassName('page-btn');
+  if(nextBtn && prevBtn && pageButtons){
+    nextBtn.addEventListener('click', nextPage);
+    prevBtn.addEventListener('click', prevPage);
+    for (let i = 0; i < pageButtons.length; i++) {
+      pageButtons[i].addEventListener('click', function() {
+          const page = parseInt(this.getAttribute('data-page'));
+          if (page !== currentPage) {
+              currentPage = page;
+              getAllChild(currentPage,itemsPerPage);
+          }
+      });
+    }
+  }
+});
+
+async function getAllChild(currentPage, itemsPerPage) {
+  const response = await fetch(`http://localhost:7074/exuser//allchildwithpagination?page=${currentPage}&size=${itemsPerPage}`);
+  const childs = await response.json();
+  if(childs){
+    showAllChild(childs);
+  }
+  else {
+    console.log("Something went wrong to fetching child !");
+  }
+}
+
+async function  showAllChild(data) {
   let childs = document.getElementById("childs");
   childs.innerHTML="";
-  for (let i = 0; i < allChilds.length; i++) {
-    let child = allChilds[i];
+  for (let i = 0; i < data.length; i++) {
+    let child = data[i];
     childs.innerHTML+=`
         <tr id="sadmin" style="display: table-row;text-align: end;" main_userid="sadmin">
         <td id="accountCol" style="text-align: start;" class="align-L">
@@ -267,7 +345,7 @@ async function  showAllChild(pageno, pagesize) {
   }
 }
 
-showAllChild(0, 10);
+getAllChild(currentPage,itemsPerPage);
 
 async function userSearch(){
   const response = await fetch("http://localhost:7074/exuser/allchild");
@@ -365,24 +443,24 @@ function getQueryParam(param) {
   return urlParams.get(param);
 }
 
-document.addEventListener("DOMContentLoaded", (event) => {
+window.addEventListener("DOMContentLoaded", (event) => {
   const userDataLink = document.getElementById('userDataLink');
   if (userDataLink) {
   userDataLink.addEventListener('click', function(event) {
     event.preventDefault();
 
     // Extract userid and usertype from the href attribute
-    //const href = userDataLink.getAttribute('href');
-    //const urlParams = new URLSearchParams(href.split('?')[1]);
-    //const userid = urlParams.get('userid');
-    //const usertype = urlParams.get('usertype');
+    const href = userDataLink.getAttribute('href');
+    const urlParams = new URLSearchParams(href.split('?')[1]);
+    const userid = urlParams.get('userid');
+    const usertype = urlParams.get('usertype');
 
     // Append userid and usertype as request parameters to the current URL
-    //const currentUrl = window.location.pathname;
-    //const updatedUrl = `${currentUrl}?userid=${userid}&usertype=${usertype}`;
+    const currentUrl = window.location.pathname;
+    const updatedUrl = `${currentUrl}?userid=${userid}&usertype=${usertype}`;
 
     // Redirect to the updated URL
-    //window.location.href = updatedUrl;
+    window.location.href = updatedUrl;
     showParentChild();
   });
   }

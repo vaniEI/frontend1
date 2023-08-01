@@ -254,6 +254,16 @@
             </li>
           </ul>
         </div>
+        <div style="display: flex" class="downline">
+            <button>owner</button>
+            <button>subadmin</button>
+            <button>miniadmin</button>
+            <button>superadmin</button>
+            <button>supersuper</button>
+            <button>super</button>
+            <button>master</button>
+            <button>user</button>
+        </div>
         <div>
           <span class="add_member" id="mySizeChart">
             <i class="fas fa-user-plus"></i>Add <span id="statusofuser"></span>
@@ -364,18 +374,18 @@
       </ul> -->
       <ul class="pagination">
         <li class="page-item">
-          <span class="page-link" onclick="showAllChild()">Previous</span>
+          <span class="page-link disabled" id="prev-btn">Previous</span>
         </li>
-        <li class="page-item" onclick="showAllChild(0,10)">
+        <li class="page-item page-btn" data-page="0">
           <span class="page-link">1</span>
         </li>
-        <li class="page-item" onclick="showAllChild(1,10)">
+        <li class="page-item page-btn" data-page="1">
           <span class="page-link">2</span>
         </li>
-        <li class="page-item" onclick="showAllChild(2,10)">
+        <li class="page-item page-btn" data-page="2">
           <span class="page-link">3</span>
         </li>
-        <li class="page-item" onclick="showAllChild()">
+        <li class="page-item" id="next-btn">
           <span class="page-link">Next</span>
         </li>
       </ul>
@@ -418,7 +428,7 @@
 
         <div class="ebcf_modal-content">
           <span class="ebcf_close"></span>
-          <h3 id="createHeader">Add <span></span></h3>
+          <h3 id="createHeader">Add <span id="statusofUSER"></span></h3>
           <ul class="half_box add-member-box">
             <li class="add_account_box">
             
@@ -429,6 +439,7 @@
                         <option value="selectwebsite" disabled selected>--Select Website--</option>
                     </select>
                     <span class="must">*</span>
+                    <span id="websiteErrorText" class="error-text"></span>
                 </dd>
             </dl>
                 <dl>
@@ -475,13 +486,15 @@
                     <dt>Last Name</dt>
                     <dd>
                         <input id="lastName" type="text" placeholder="Enter here" maxlength="16">
+                        <span id="lastNameErrorText" class="error-text"></span>
                     </dd>
                 </dl>
                 <dl>
                     <dt>Phone</dt>
                     <dd>
-                        <input id="phone" type="text" placeholder="Enter here" maxlength="16">
+                        <input id="phone" type="text" placeholder="Enter here" maxlength="10">
                         <span class="must">*</span>
+                        <span id="phoneErrorText" class="error-text"></span>
                     </dd>
                 </dl>
                 
