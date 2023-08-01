@@ -206,26 +206,26 @@ async function saveUserInMongo(data) {
       phoneErrorText.innerHTML="";
       firstNameErrorText.innerHTML="";
       lastNameErrorText.innerHTML="";
-      if(result.message === "Invalid Email Address"){
+      if(result.message === "Website name Must Be Required"){
+        websiteErrorText.innerHTML="Website name Must Be Required !";
+      }
+      else if(result.message === "Invalid Email Address"){
        emailErrorText.innerHTML="Invalid Email Address !";
       }
       else if(result.message === "User Id Required"){
         userNameErrorText.innerHTML="User Id Required !";
       }
-      else if(result.message === "Website Name Must be grater than 5 Characters"){
-        websiteErrorText.innerHTML="Website Name Must be grater than 5 Characters !";
-      }
-      else if(result.message === "Password Must contains 1 Upper Case, 1 Lowe Case & 1 Numeric Value & in Between 10-15 Charachter"){
+      else if(result.message === "Password Must contains 1 Upper Case, 1 Lowe Case & 1 Numeric Value & in Between 8-15 Charachter"){
         passwordErrorText.innerHTML="Password Must contains 1 Upper Case, 1 Lowe Case & 1 Numeric Value & in Between 10-15 Charachter !";
-      }
-      else if(result.message === "Mobile Number Must Be Of 10 Digit"){
-        phoneErrorText.innerHTML="Mobile Number Must Be Of 10 Digit !";
       }
       else if(result.message === "Enter FirstName"){
         firstNameErrorText.innerHTML="Enter FirstName !";
       }
       else if(result.message === "Enter LastName"){
         lastNameErrorText.innerHTML="Enter LastName !";
+      }
+      else if(result.message === "Mobile Number Must Be Of 10 Digit"){
+        phoneErrorText.innerHTML="Mobile Number Must Be Of 10 Digit !";
       }
     }
   } catch (error) {
