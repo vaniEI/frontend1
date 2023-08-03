@@ -87,7 +87,7 @@ if(username !== "" && username !== "null" && password !== "" && password !== "nu
 
 async function fetchLogin(data) {
 try {
-  const response = await fetch("http://170-187-238-58:7074/exuser/managementHome", {
+  const response = await fetch("http://170-187-238-58.ip.linodeusercontent.com:7074/exuser/managementHome", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -178,7 +178,7 @@ else{
 
 async function saveUserInMongo(data) {
 try {
-  const response = await fetch("http://170-187-238-58:7074/exuser/validateUserCreation", {
+  const response = await fetch("http://170-187-238-58.ip.linodeusercontent.com:7074/exuser/validateUserCreation", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -234,7 +234,7 @@ try {
 }
 
 async function getAllWebsites() {
-const response = await fetch("http://170-187-238-58:7074/exuser/allWebsite");
+const response = await fetch("http://170-187-238-58.ip.linodeusercontent.com:7074/exuser/allWebsite");
 const websites = await response.json();
 return websites;
 }
@@ -287,7 +287,7 @@ if(nextBtn && prevBtn && pageButtons){
 });
 
 async function getAllChild(currentPage, itemsPerPage) {
-const response = await fetch(`http://170-187-238-58:7074/exuser/allchildwithpagination?page=${currentPage}&size=${itemsPerPage}`);
+const response = await fetch("http://170-187-238-58.ip.linodeusercontent.com:7074/exuser/allchildwithpagination?page=${currentPage}&size=${itemsPerPage}");
 const childs = await response.json();
 if(childs){
   showAllChild(childs);
@@ -348,7 +348,7 @@ for (let i = 0; i < data.length; i++) {
 getAllChild(currentPage,itemsPerPage);
 
 async function userSearch(){
-const response = await fetch("http://170-187-238-58:7074/exuser/allchild");
+const response = await fetch("http://170-187-238-58.ip.linodeusercontent.com:7074/exuser/allchild");
 const allChilds = await response.json();
 let childs = document.getElementById("childs");
 childs.innerHTML="";
@@ -407,7 +407,7 @@ checkOnDatabase(data);
 
 async function checkOnDatabase(data) {
 try {
-  const response = await fetch("http://170-187-238-58:7074/exuser/checkuser", {
+  const response = await fetch("http://170-187-238-58.ip.linodeusercontent.com:7074/exuser/checkuser", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -429,7 +429,7 @@ try {
 
 async function logout() {
 sessionStorage.removeItem("data");
-const response = await fetch("http://170-187-238-58:7074/exuser/logout");
+const response = await fetch("http://170-187-238-58.ip.linodeusercontent.com:7074/exuser/logout");
 const data = await response.json();
 console.log(data);
 if(data.type === "success") {
@@ -469,7 +469,7 @@ userDataLink.addEventListener('click', function(event) {
 async function getParentChild(){
 const userid = getQueryParam('userid');
 const usertype = getQueryParam('usertype');
-const response = await fetch(`http://170-187-238-58:7074/exuser/${userid}/${usertype}`);
+const response = await fetch("http://170-187-238-58.ip.linodeusercontent.com:7074/exuser/${userid}/${usertype}");
 const childs = await response.json();
 console.log(childs)
 return childs;
