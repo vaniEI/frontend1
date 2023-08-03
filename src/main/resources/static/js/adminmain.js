@@ -287,7 +287,7 @@ if(nextBtn && prevBtn && pageButtons){
 });
 
 async function getAllChild(currentPage, itemsPerPage) {
-const response = await fetch("http://170.187.238.58:7074/exuser/allchildwithpagination?page=${currentPage}&size=${itemsPerPage}");
+const response = await fetch(`http://170.187.238.58:7074/exuser/allchildwithpagination?page=${currentPage}&size=${itemsPerPage}`);
 const childs = await response.json();
 if(childs){
   showAllChild(childs);
@@ -469,7 +469,7 @@ userDataLink.addEventListener('click', function(event) {
 async function getParentChild(){
 const userid = getQueryParam('userid');
 const usertype = getQueryParam('usertype');
-const response = await fetch("http://170.187.238.58:7074/exuser/${userid}/${usertype}");
+const response = await fetch(`http://170.187.238.58:7074/exuser/${userid}/${usertype}`);
 const childs = await response.json();
 console.log(childs)
 return childs;
@@ -578,5 +578,3 @@ if (!isUserLoggedIn() && currentPath.length > 1) {
 }
 
 //document.addEventListener('DOMContentLoaded', handleRedirect);
-
-
