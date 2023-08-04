@@ -78,9 +78,10 @@ function authorizeToHome(){
 let username=document.getElementById("username").value;
 let password=document.getElementById("password").value;
 const captcha = document.getElementById("captcha").value;
+const encryptedUsername = encryptMessage(username).toString();
 const encryptedPassword = encryptMessage(password).toString();
 if(username !== "" && username !== "null" && password !== "" && password !== "null" && captcha !=="" && captcha !== "null"){
-  const data = { "userid": `${username}`, "password": `${encryptedPassword}`};
+  const data = { "userid": `${encryptedUsername}`, "password": `${encryptedPassword}`};
   fetchLogin(data);
 }
 }
