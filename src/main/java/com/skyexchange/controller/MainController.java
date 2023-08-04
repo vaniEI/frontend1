@@ -1,73 +1,66 @@
 package com.skyexchange.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping
 public class MainController {
 
-
-	@RequestMapping("/")
+	@GetMapping("/")
 	public String admin() {
 		return "index";
 	}
 	
-	@RequestMapping("/home")
+	@GetMapping(value = "/home")
 	public String home() {
 		return "home";
 	}
 
-	@RequestMapping("/home?userid={id}&usertype={usertype}")
-	public String childhome() {
-		return "childhome";
-	}
-
-	@RequestMapping("/account")
+	@GetMapping(value = "/account")
 	public String account() {
 		return "myaccount";
 	}
 
-	@RequestMapping("/profitdownline")
+	@GetMapping(value = "/profitdownline")
 	public String profitdownline() { 
 		return "profit-downline";
 	}
 
-	@RequestMapping("/profitmarket")
+	@GetMapping(value = "/profitmarket")
 	public String profitmarket() { 
 		return "profit-market";
 	}
 
-	@RequestMapping("/betlist")
+	@GetMapping(value = "/betlist")
 	public String betlist() { 
 		return "betlist";
 	}
 
-	@RequestMapping("/riskmanagement")
+	@GetMapping(value = "/riskmanagement")
 	public String riskmanagement() { 
 		return "risk-management";
 	}
 
-	@RequestMapping("/banking")
+	@GetMapping(value = "/banking")
 	public String banking() { 
 		return "banking";
 	}
 
-	@RequestMapping("/profile")
+	@GetMapping(value = "/profile")
 	public String profile() { 
 		return "profile";
 	}
 
-	@RequestMapping("/activitylog")
+	@GetMapping(value = "/activitylog")
 	public String activitylog() { 
 		return "activity-log";
 	}
 
-	@RequestMapping("/accountstatement")
+	@GetMapping(value = "/accountstatement")
 	public String accountstatement() { 
 		return "account-statement";
 	}
 
 }
-
-
