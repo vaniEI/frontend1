@@ -5,9 +5,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
+@RequestMapping("/skyexchange")
 public class MainController {
 
-	@RequestMapping("/")
+	@RequestMapping(value ="/",  method=RequestMethod.GET)
 	public String admin() {
 		return "index";
 	}
