@@ -3,9 +3,9 @@ package com.skyexchange.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-@RequestMapping
 public class MainController {
 
 	@GetMapping("/")
@@ -13,52 +13,52 @@ public class MainController {
 		return "index";
 	}
 	
-	@GetMapping(value = "/home")
+	@RequestMapping(value = "/home",  method=RequestMethod.GET)
 	public String home() {
 		return "home";
 	}
 
-	@GetMapping(value = "/account")
+	@RequestMapping(value = "/account",  method=RequestMethod.GET)
 	public String account() {
 		return "myaccount";
 	}
 
-	@GetMapping(value = "/profitdownline")
+	@RequestMapping(value = "/profitdownline",  method=RequestMethod.GET)
 	public String profitdownline() { 
 		return "profit-downline";
 	}
 
-	@GetMapping(value = "/profitmarket")
+	@RequestMapping(value = "/profitmarket",  method=RequestMethod.GET)
 	public String profitmarket() { 
 		return "profit-market";
 	}
 
-	@GetMapping(value = "/betlist")
+	@RequestMapping(value = "/betlist",  method=RequestMethod.GET)
 	public String betlist() { 
 		return "betlist";
 	}
 
-	@GetMapping(value = "/riskmanagement")
+	@RequestMapping(value = "/riskmanagement",  method=RequestMethod.GET)
 	public String riskmanagement() { 
 		return "risk-management";
 	}
 
-	@GetMapping(value = "/banking")
+	@RequestMapping(value = "/banking",  method=RequestMethod.GET)
 	public String banking() { 
 		return "banking";
 	}
 
-	@GetMapping(value = "/profile")
+	@RequestMapping(value = "/profile",  method=RequestMethod.GET)
 	public String profile() { 
 		return "profile";
 	}
 
-	@GetMapping(value = "/activitylog")
+	@RequestMapping(value = "/activitylog",  method=RequestMethod.GET)
 	public String activitylog() { 
 		return "activity-log";
 	}
 
-	@GetMapping(value = "/accountstatement")
+	@RequestMapping(value = "/accountstatement",  method=RequestMethod.GET)
 	public String accountstatement() { 
 		return "account-statement";
 	}
