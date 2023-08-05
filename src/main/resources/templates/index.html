@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,15 +7,14 @@
   <title>Bet Master</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
   <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
-  <link href="adminstyle.css" rel="stylesheet" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.min.js"></script>
+  <link rel="stylesheet" th:href="@{/css/adminstyle.css}" />
 </head>
 
 <body class="skyexchange" onload="generate()">
     <div id="loginForm" class="overlay">
         <div class="index-div">
             <div class="index-img">
-                <img src="/images/bg-login_wrap-skyEX.jpg">
+                <img src="/img/bg-login_wrap-skyEX.jpg">
             </div>
             <div class="index-form">
                 <h2>Agent login</h2>
@@ -36,15 +35,15 @@
   <!-- form end  -->
     <div id="supportWrap" class="support-wrap container">
         <div class="support-service">
-            <a id="support_email" href="#" class="support-mail open supmail"><img src="/images/transparent.gif"
+            <a id="support_email" href="#" class="support-mail open supmail"><img src="/img/transparent.gif"
                     title="Email"></a>
-            <a id="support_whatsapp" href="#" class="support-whatsapp subweb"><img src="/images/transparent.gif"
+            <a id="support_whatsapp" href="#" class="support-whatsapp subweb"><img src="/img/transparent.gif"
                     title="WhatsApp"></a>
-            <a id="support_telegram" href="#" class="support-telegram subinfo"><img src="/images/transparent.gif"
+            <a id="support_telegram" href="#" class="support-telegram subinfo"><img src="/img/transparent.gif"
                     title="Telegram"></a>
-            <a id="support_skype" href="#" class="support-skype subskype"><img src="/images/transparent.gif"
+            <a id="support_skype" href="#" class="support-skype subskype"><img src="/img/transparent.gif"
                     title="Skype"></a>
-            <a id="support_instagram" href="#" class="support-ig subinsta"><img src="/images/transparent.gif"
+            <a id="support_instagram" href="#" class="support-ig subinsta"><img src="/img/transparent.gif"
                     title="Instagram"></a>
         </div>
         <div class="support-info">
@@ -69,24 +68,25 @@
     <div class="power-wrap">
         <h3 id="powerWrapW">
             <span>Powered by</span>
-            <img src="/images/betfair.png">
+            <img src="/img/betfair.png">
         </h3>
         <div class="vl"></div>
         <div class="licence_embed">
-            <img src="/images/gc-logo.png" width="150" height="50" style="border:none;">
+            <img src="/img/gc-logo.png" width="150" height="50" style="border:none;">
         </div>
         <p><a href="http://www.gaming-curacao.com/validation/sky-infotech-limited/" target="_blank">Sky Infotech
                 Limited</a> is licensed and regulated by Government of Curacao under license no 365/JAZ Sub-License
             GLH-OCCHKTW0707072017.</p>
     </div>
     <div class="browser-wrap container">
-        <img src="/images/website.png">
-        <img src="/images/world.png" class="world-img">
+        <img src="/img/website.png">
+        <img src="/img/world.png" class="world-img">
         <p>Our website works best in the newest and last prior version of these browsers: <br>Google Chrome. Firefox</p>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
-    <script src="../static/js/adminmain.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.min.js"></script>
+    <script th:src="@{/js/adminmain.js}"></script>
 </body>
 
 </html>

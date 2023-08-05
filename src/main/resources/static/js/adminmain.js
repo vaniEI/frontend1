@@ -104,7 +104,7 @@ try {
   }
   else if(result.type === "success"){
     sessionStorage.setItem("data",JSON.stringify(result.message));
-    window.location.href = "/skyexchange/home";
+    window.location.href = "/home";
   }
 } catch (error) {
   console.error("Error:", error);

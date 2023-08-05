@@ -21,9 +21,7 @@
       crossorigin="anonymous"
     />
     
-    <link href="../static/css/adminstyle.css" rel="stylesheet" />
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.min.js"></script>
+    <link rel="stylesheet" th:href="@{/css/adminstyle.css}" />
   </head>
 
   <body style="background-color: #f0ece1">
@@ -597,7 +595,8 @@
     integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
     crossorigin="anonymous"
   ></script>
-  <script src="../static/js/adminmain.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.min.js"></script>
+  <script th:src="@{/js/adminmain.js}"></script>
   <script>
     // Get the modal
 var ebModal = document.getElementById('mySizeChartModal');

@@ -2,63 +2,61 @@ package com.skyexchange.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-@RequestMapping("/skyexchange")
 public class MainController {
 
-	@RequestMapping(value ="/",  method=RequestMethod.GET)
+	@RequestMapping("/")
 	public String admin() {
 		return "index";
 	}
 	
-	@RequestMapping(value = "/home",  method=RequestMethod.GET)
+	@RequestMapping("/home")
 	public String home() {
 		return "home";
 	}
 
-	@RequestMapping(value = "/account",  method=RequestMethod.GET)
+	@RequestMapping("/account")
 	public String account() {
 		return "myaccount";
 	}
 
-	@RequestMapping(value = "/profitdownline",  method=RequestMethod.GET)
+	@RequestMapping("/profitdownline")
 	public String profitdownline() { 
 		return "profit-downline";
 	}
 
-	@RequestMapping(value = "/profitmarket",  method=RequestMethod.GET)
+	@RequestMapping("/profitmarket")
 	public String profitmarket() { 
 		return "profit-market";
 	}
 
-	@RequestMapping(value = "/betlist",  method=RequestMethod.GET)
+	@RequestMapping("/betlist")
 	public String betlist() { 
 		return "betlist";
 	}
 
-	@RequestMapping(value = "/riskmanagement",  method=RequestMethod.GET)
+	@RequestMapping("/riskmanagement")
 	public String riskmanagement() { 
 		return "risk-management";
 	}
 
-	@RequestMapping(value = "/banking",  method=RequestMethod.GET)
+	@RequestMapping("/banking")
 	public String banking() { 
 		return "banking";
 	}
 
-	@RequestMapping(value = "/profile",  method=RequestMethod.GET)
+	@RequestMapping("/profile")
 	public String profile() { 
 		return "profile";
 	}
 
-	@RequestMapping(value = "/activitylog",  method=RequestMethod.GET)
+	@RequestMapping("/activitylog")
 	public String activitylog() { 
 		return "activity-log";
 	}
 
-	@RequestMapping(value = "/accountstatement",  method=RequestMethod.GET)
+	@RequestMapping("/accountstatement")
 	public String accountstatement() { 
 		return "account-statement";
 	}
