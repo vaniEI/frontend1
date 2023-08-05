@@ -8,7 +8,7 @@
 }
 
 .skyexchange {
-    background: #080a05 url(../images/bg-login-skyEX.jpg) no-repeat center;
+    background: #080a05 url(../img/bg-login-skyEX.jpg) no-repeat center;
     background-size: cover;
 }
 
@@ -592,7 +592,7 @@ option {
     padding: 3px;
 }
 .add_member {
-    background: #eee url(../images/bg-btn.gif) repeat-x;
+    background: #eee url(../img/bg-btn.gif) repeat-x;
     border: 1px solid #bbb;
     border-radius: 4px;
     color: #1e1e1e;
@@ -606,7 +606,7 @@ option {
     cursor: pointer;
 }
 .total_all .btn_replay{
-    background: #eee url(../images/bg-btn.gif) repeat-x;
+    background: #eee url(../img/bg-btn.gif) repeat-x;
     border: 1px solid #bbb;
     border-radius: 4px;
     color: #1e1e1e;
@@ -808,7 +808,7 @@ option {
     margin: 15px 0 10px 0;
 }
 /* .agent_path ul {
-    background: url(../images/agent/ag_path_bg.gif);
+    background: url(../img/agent/ag_path_bg.gif);
     border: 1px solid #7E97A7;
     border-radius: 3px;
 } */
@@ -1585,7 +1585,7 @@ select {
 }
 
 .skyexchange .btn-send {
-    background: #121212 url(../images/skyexchange/bg-send-skyEX.png) repeat-x;
+    background: #121212 url(../img/skyexchange/bg-send-skyEX.png) repeat-x;
     color: #F8D61C;
     border-color: #000;
 }
@@ -1850,7 +1850,7 @@ select {
 }
 /* The Close Button */
 .ebcf_close {
-    background-image: url(../images/agent-sa842cb1158.png);
+    background-image: url(../img/agent-sa842cb1158.png);
     background-repeat: no-repeat;
     position: absolute;
     right: 15px;
