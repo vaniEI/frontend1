@@ -20,47 +20,56 @@ public class MainController {
 	}
 
 	@RequestMapping("/account")
-	public String account() {
+	public String account(Model model) {
+		model.addAttribute("title", "Account - Sky Exchange");
 		return "myaccount";
 	}
 
 	@RequestMapping("/profitdownline")
-	public String profitdownline() { 
+	public String profitdownline(Model model) {
+		model.addAttribute("title", "Profit Downline - Sky Exchange");
 		return "profit-downline";
 	}
 
 	@RequestMapping("/profitmarket")
-	public String profitmarket() { 
+	public String profitmarket(Model model) {
+		model.addAttribute("title", "Profit Market - Sky Exchange");
 		return "profit-market";
 	}
 
 	@RequestMapping("/betlist")
-	public String betlist() { 
+	public String betlist(Model model) {
+		model.addAttribute("title", "Betlist - Sky Exchange");
 		return "betlist";
 	}
 
 	@RequestMapping("/riskmanagement")
-	public String riskmanagement() { 
+	public String riskmanagement(Model model) {
+		model.addAttribute("title", "Risk Management - Sky Exchange");
 		return "risk-management";
 	}
 
 	@RequestMapping("/banking")
-	public String banking() { 
+	public String banking(Model model) {
+		model.addAttribute("title", "Banking - Sky Exchange");
 		return "banking";
 	}
 
 	@RequestMapping("/profile")
-	public String profile() { 
+	public String profile(Model model) {
+		model.addAttribute("title", "Profile - Sky Exchange");
 		return "profile";
 	}
 
 	@RequestMapping("/activitylog")
-	public String activitylog() { 
+	public String activitylog(Model model) {
+		model.addAttribute("title", "Activity Log - Sky Exchange");
 		return "activity-log";
 	}
 
 	@RequestMapping("/accountstatement")
-	public String accountstatement() { 
+	public String accountstatement(Model model) {
+		model.addAttribute("title", "Account Statement - Sky Exchange");
 		return "account-statement";
 	}
 
