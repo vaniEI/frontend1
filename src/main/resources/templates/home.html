@@ -416,6 +416,7 @@
                         <option value="" disabled selected>--Select Website--</option>
                     </select>
                     <span class="must">*</span>
+                    <br>
                     <span id="websiteErrorText" class="error-text"></span>
                 </dd>
             </dl>
@@ -424,6 +425,7 @@
                   <dd>
                       <input id="email" type="email" placeholder="Enter here" maxlength="30">
                       <span class="must">*</span>
+                      <br>
                       <span id="emailErrorText" class="error-text"></span>
                   </dd>
               </dl>
@@ -432,14 +434,16 @@
                     <dd>
                         <input id="userName" type="text" placeholder="Enter here" maxlength="16" onblur="checkUserAvailable()">
                         <span class="must">*</span>
+                        <br>
                         <span id="userNameErrorText" class="error-text"></span>
                     </dd>
                 </dl>
                 <dl>
                     <dt>Password</dt>
                     <dd>
-                        <input id="userPassword" type="password" placeholder="Enter here">
+                        <input id="userPassword" type="password" placeholder="Enter here" onblur="checkUserPassword()">
                         <span class="must">*</span>
+                        <br>
                         <span id="passwordErrorText" class="error-text"></span>
                     </dd>
                 </dl>
@@ -448,6 +452,7 @@
                     <dd>
                         <input id="repeatPassword" type="password" placeholder="Enter here">
                         <span class="must">*</span>
+                        <br>
                         <span id="repeatPasswordErrorText" class="error-text"></span>
                     </dd>
                 </dl>
@@ -455,7 +460,8 @@
                     <dt>First Name</dt>
                     <dd>
                         <input id="firstName" type="text" placeholder="Enter here" maxlength="16">
-                             <span class="must">*</span>
+                        <span class="must">*</span>
+                        <br>
                         <span id="firstNameErrorText" class="error-text"></span>
                     </dd>
                 </dl>
@@ -463,6 +469,7 @@
                     <dt>Last Name</dt>
                     <dd>
                         <input id="lastName" type="text" placeholder="Enter here" maxlength="16">
+                        <br>
                         <span id="lastNameErrorText" class="error-text"></span>
                     </dd>
                 </dl>
@@ -471,6 +478,7 @@
                     <dd>
                         <input id="phone" type="text" placeholder="Enter here" maxlength="10">
                         <span class="must">*</span>
+                        <br>
                         <span id="phoneErrorText" class="error-text"></span>
                     </dd>
                 </dl>

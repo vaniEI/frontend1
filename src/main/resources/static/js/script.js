@@ -207,14 +207,14 @@ try {
     phoneErrorText.innerHTML="";
     firstNameErrorText.innerHTML="";
     lastNameErrorText.innerHTML="";
-    if(result.message === "Website name Must Be Required"){
-      websiteErrorText.innerHTML="Website name Must Be Required !";
+    if(result.message === "WebsiteName Must be Required"){
+      websiteErrorText.innerHTML="WebsiteName Must be Required !";
     }
     else if(result.message === "Invalid Email Address"){
      emailErrorText.innerHTML="Invalid Email Address !";
     }
-    else if(result.message === "User Id Required"){
-      userNameErrorText.innerHTML="User Id Required !";
+    else if(result.message === "User Id Must be Required"){
+      userNameErrorText.innerHTML="User Id Must be Required !";
     }
     else if(result.message === "Password Must contains 1 Upper Case, 1 Lowe Case & 1 Numeric Value & in Between 8-15 Charachter"){
       passwordErrorText.innerHTML="Password Must contains 1 Upper Case, 1 Lowe Case & 1 Numeric Value & in Between 10-15 Charachter !";
@@ -404,6 +404,31 @@ function checkUserAvailable(){
 let userid=document.getElementById("userName").value;
 const data = { "userid": `${userid}`};
 checkOnDatabase(data);
+}
+
+async function checkUserPassword(){
+  let userPassword=document.getElementById("userPassword").value;
+  let encryptPassword=encryptMessage(userPassword);
+  const data = { "password": `${encryptPassword}`};
+  try {
+    const response = await fetch("http://3.0.102.63:7074/exuser/checkpassword", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    const result = await response.json();
+    if(result.type === "Error"){
+      document.getElementById("passwordErrorText").innerHTML=`${result.message}`;
+      return;
+    }
+    else if(result.type === "Success"){
+      document.getElementById("userNameErrorText").innerHTML="";
+    }
+  } catch (error) {
+    console.error("Error:", error);
+  }
 }
 
 async function checkOnDatabase(data) {
