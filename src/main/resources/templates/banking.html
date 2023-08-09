@@ -34,55 +34,23 @@
             </ul>
         </div>
         <!-- Report Table -->
-        <div class="report_over-wrap" style="max-height: calc(100% - 208px)">
-            <div class="function-wrap clearfix">
-                <dl class="banking-head float-L d-flex bank-dl">
-                    <dt>Your Balance</dt>
-                    <dd id="yourBalance"><span>PIN</span>0.00</dd>
-                </dl>
-            </div>
-            <table id="table_transfer" class="table01 tab-transfer tab-banking">
-                <colgroup>
-                    <col span="1" width="190">
-                    <col span="1" width="120">
-                    <col span="1" width="120">
-                    <col span="1" width="120">
-                    <col span="1" width="220">
-                    <col span="1" width="280">
-                    <col span="1" width="230">
-                    <col span="1" width="200">
-                    <col span="1" width="120">
-                    <col span="1" width="80">
-                </colgroup>
-                <tbody>
-                    <tr>
-                        <th id="userIdTH" class="align-L sort-this">UID <i class="fas fa-caret-down"></i></th>
-                        <th>Balance</th>
-                        <th>Available D/W</th>
-                        <th>Exposure</th>
-
-                        <th width="" class="align-R border-l check_balance">
-                            <span>
-                                Check Balance
-                                <a id="checkBankingBalance" href="#" class="btn">Check</a>
-                            </span>
-                        </th>
-                        <th class="align-C border-l">Deposit / Withdraw</th>
-                        <th class="border-l">Credit Reference</th>
-                        <th class="">Reference P/L</th>
-                        <th class="border-l">Remark</th>
-                        <th class="border-l"></th>
-                    </tr>
-                </tbody>
-                <tbody id="content">
-                    <tr id="noDataTempTr">
-                        <td class="no-data" colspan="11">
-                            <p>No Data</p>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+        <table id="table_log" class="table01">
+            <thead>
+               <tr class="headingsTr">
+                  <th id="huid" class="align-L hd">UID <i class="bi bi-caret-down-fill"></i></th>
+                  <th class="align-L hd">Balance</th>
+                  <th class="align-L hd availableTH">Available D/W</th>
+                  <th id="dexp" class="align-L hd">Exposure</th>
+                  <th id="hDpWd" class="align-L hd">Deposit/Withdraw</th>
+                  <th class="align-L hd">Credit Reference</th>
+                  <th id="hrefpl" class="align-L hd">Reference P/L</th>
+                  <th id="hrmk" class="align-L hd">Remark</th>
+                  <th id="hlgs" class="align-L hd">logs</th>
+               </tr>
+            </thead>
+            <tbody id="content">
+            </tbody>
+         </table>
         <div class="submit-wrap" id="settlementBar">
             <ul class="d-flex bank-ulft">
                 <li><a id="clearAllBtn" href="javascript:void(0);" class="btn">Clear All</a></li>
