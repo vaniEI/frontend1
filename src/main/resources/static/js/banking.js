@@ -2,10 +2,14 @@
 async function showBankingPage() {
   const response = await fetch("http://3.0.102.63:7074/exuser/allchild");
   const allChilds = await response.json();
+  const encryptedData=allChilds.data;
+  var decryptData=JSON.parse(decryptMessage(encryptedData));
+  var stage=JSON.parse(decryptData.payload);
+  var data=JSON.parse(stage.data);
   let childs = document.getElementById("content");
   childs.innerHTML="";
-  for (let i = 0; i < allChilds.length; i++) {
-    let child = allChilds[i];
+  for (let i = 0; i < data.length; i++) {
+    let child = data[i];
     childs.innerHTML+=`
         <tr class="dataofAccount">
         <td id="ad" class="align-L"><span class="order">${i+1}</span>${child.userid}</td>

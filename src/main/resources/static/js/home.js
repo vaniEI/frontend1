@@ -1,3 +1,20 @@
+var encryptedBase64Key = "bXVzdGJlMTZieXRlc2tleQ==";
+var parsedBase64Key = CryptoJS.enc.Base64.parse(encryptedBase64Key);
+
+function encryptMessage (data){
+return CryptoJS.AES.encrypt(data, parsedBase64Key, {
+  mode: CryptoJS.mode.ECB,
+  padding: CryptoJS.pad.Pkcs7
+  }).toString();
+}
+
+function decryptMessage (data){
+return CryptoJS.AES.decrypt( data, parsedBase64Key, {
+  mode: CryptoJS.mode.ECB,
+  padding: CryptoJS.pad.Pkcs7
+  } ).toString( CryptoJS.enc.Utf8 );
+}
+
 function setData() {
 let data = JSON.parse(sessionStorage?.getItem("data"));
 if(data){
@@ -60,18 +77,20 @@ else{
                 "mobileNumber":`${mobileNumber}`,
                 "exposureLimit":2000,
                 "timeZone":`${timeZone}`};
-  saveUserInMongo(data);
+  var encryptData=encryptMessage(JSON.stringify(data));
+  const payload={"payload": encryptData};
+  saveUserInMongo(payload);
 }
 }
 
-async function saveUserInMongo(data) {
+async function saveUserInMongo(payload) {
 try {
   const response = await fetch("http://3.0.102.63:7074/exuser/validateUserCreation", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(data),
+    body: JSON.stringify(payload),
   });
   const result = await response.json();
   if(result.type === "success"){
@@ -122,9 +141,13 @@ try {
 }
 
 async function getAllWebsites() {
-const response = await fetch("http://3.0.102.63:7074/exuser/allWebsite");
-const websites = await response.json();
-return websites;
+	const response = await fetch("http://3.0.102.63:7074/exuser/allWebsite");
+	const websites = await response.json();
+	const encryptedData=websites.data;
+	var decryptData=JSON.parse(decryptMessage(encryptedData));
+	var stage=JSON.parse(decryptData.payload);
+	var data=JSON.parse(stage.data);
+	return data;
 }
 
 async function  showAllWebsites() {
@@ -178,7 +201,11 @@ async function getAllChild(currentPage, itemsPerPage) {
 const response = await fetch(`http://3.0.102.63:7074/exuser/allchildwithpagination?page=${currentPage}&size=${itemsPerPage}`);
 const childs = await response.json();
 if(childs){
-  showAllChild(childs);
+  const encryptedData=childs.data;
+  var decryptData=JSON.parse(decryptMessage(encryptedData));
+  var stage=JSON.parse(decryptData.payload);
+  var data=JSON.parse(stage.data);
+  showAllChild(data);
 }
 else {
   console.log("Something went wrong to fetching child !");
@@ -238,10 +265,14 @@ getAllChild(currentPage,itemsPerPage);
 async function userSearch(){
 const response = await fetch("http://3.0.102.63:7074/exuser/allchild");
 const allChilds = await response.json();
+const encryptedData=allChilds.data;
+var decryptData=JSON.parse(decryptMessage(encryptedData));
+var stage=JSON.parse(decryptData.payload);
+var data=JSON.parse(stage.data);
 let childs = document.getElementById("childs");
 childs.innerHTML="";
 let userId=document.getElementById("userId").value.toLowerCase();
-let filterUser=allChilds.filter(child => child.userid === userId);
+let filterUser=data.filter(child => child.userid === userId);
 for (let i = 0; i < filterUser.length; i++) {
   let child = filterUser[i];
   childs.innerHTML+=`
@@ -290,7 +321,9 @@ for (let i = 0; i < filterUser.length; i++) {
 function checkUserAvailable(){
 let userid=document.getElementById("userName").value;
 const data = { "userid": `${userid}`};
-checkOnDatabase(data);
+var encryptData=encryptMessage(JSON.stringify(data));
+const payload={"payload": encryptData};
+checkOnDatabase(payload);
 }
 
 async function checkUserPassword(){
@@ -318,14 +351,14 @@ async function checkUserPassword(){
   }
 }
 
-async function checkOnDatabase(data) {
+async function checkOnDatabase(payload) {
 try {
   const response = await fetch("http://3.0.102.63:7074/exuser/checkuser", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(data),
+    body: JSON.stringify(payload),
   });
   const result = await response.json();
   if(result.type === "Error"){
@@ -380,12 +413,15 @@ userDataLink.addEventListener('click', function(event) {
 });
 
 async function getParentChild(){
-const userid = getQueryParam('userid');
-const usertype = getQueryParam('usertype');
-const response = await fetch(`http://3.0.102.63:7074/exuser/${userid}/${usertype}`);
-const childs = await response.json();
-console.log(childs)
-return childs;
+	const userid = getQueryParam('userid');
+	const usertype = getQueryParam('usertype');
+	const response = await fetch(`http://3.0.102.63:7074/exuser/${userid}/${usertype}`);
+	const childs = await response.json();
+	const encryptedData=childs.data;
+	var decryptData=JSON.parse(decryptMessage(encryptedData));
+	var stage=JSON.parse(decryptData.payload);
+	var data=JSON.parse(stage.data);
+	return data;
 }
 
 async function showParentChild(){
